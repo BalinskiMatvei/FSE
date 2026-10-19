@@ -3,7 +3,7 @@ import sys
 print("Balinski Matvei")
 
 
-("simple map distance computations")
+Print("simple map distance computations")
 
 print()
 pos_str,scale_str=input().split() #разделение  на кол-во точек и масштаб
