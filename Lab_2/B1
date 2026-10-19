@@ -1,0 +1,24 @@
+from decimal import Decimal, ROUND_HALF_UP
+import sys
+print("Balinski Matvei")
+
+
+("simple map distance computations")
+
+print()
+pos_str,scale_str=input().split() #разделение  на кол-во точек и масштаб
+positions=int(pos_str)    #перевод количества точек
+scale=Decimal(scale_str)      #перевод масштаба
+total_distance=Decimal(0)   #переменная для подсчета общего расстояния
+print("map scale factor:",f"{float(scale):.2f}","miles per inch")  # 2 знака после запятой
+print( "      " "Map measure" "           "            "milleage distance"  )
+print("==========================================================")
+for i in  range(positions):
+    map_measure=Decimal(input ()) #ввод расстояний
+    mileage_distance=map_measure*scale #перевод дюймов на карте в реальные мили
+    print(f"#  {i+1}     {Decimal(map_measure).quantize(    Decimal('0.1'), rounding=ROUND_HALF_UP)}             {Decimal(mileage_distance).quantize(   Decimal('0.1'), rounding=ROUND_HALF_UP)}")
+    total_distance+=Decimal(mileage_distance).quantize(
+        Decimal('0.1'), rounding=ROUND_HALF_UP)
+   # total_distance+=float(f"{mileage_distance:.1f}") #расчет общего расстояния
+print("==========================================================")
+print("Total distance:  ",total_distance," miles")
