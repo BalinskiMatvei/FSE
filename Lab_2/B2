@@ -1,7 +1,6 @@
 import math
 
 def process_wind_chill(input_filename, output_filename):
-    # Храним точные значения для точного подсчета среднего
     raw_wc_temperatures = []
     rows_output = []
 
@@ -11,14 +10,9 @@ def process_wind_chill(input_filename, output_filename):
         infile.readline()
         
         for line in infile:
-            if not line.strip():
-                continue
-            
             parts = line.split()
-            if len(parts) < 3:
-                continue
                 
-            # Четкое извлечение колонок по индексам
+            # Извлечение колонок по индексам
             time_str = parts[0]
             t_f = int(parts[1])
             v = int(parts[2])
@@ -27,21 +21,18 @@ def process_wind_chill(input_filename, output_filename):
             t_wc = 35.74 + 0.6125 * t_f + (0.4275 * t_f - 35.75) * math.pow(v, 0.16)
             wc_effect = t_wc - t_f
             
-            # Сохраняем ТОЧНОЕ значение для вычисления среднего
+            # Сохраняем точное значение для среднего арифметического
             raw_wc_temperatures.append(t_wc)
             
-            # Округляем только для красивого вывода в таблицу
+            # Округляем для вывода в таблицу
             t_wc_rounded = round(t_wc, 1)
             wc_effect_rounded = round(wc_effect, 1)
             
             # Формируем строку таблицы с ровными отступами
             rows_output.append(f"{time_str:<12}{t_wc_rounded:<12.1f}{wc_effect_rounded:<.1f}")
 
-    # Считаем среднее по точным данным и округляем в самом конце
-    if raw_wc_temperatures:
-        avg_temp = round(sum(raw_wc_temperatures) / len(raw_wc_temperatures), 1)
-    else:
-        avg_temp = 0.0
+    # Считаем среднее значение
+    avg_temp = round(sum(raw_wc_temperatures) / len(raw_wc_temperatures), 1)
     
     # Запись в файл отчета
     with open(output_filename, 'w', encoding='utf-8') as outfile:
